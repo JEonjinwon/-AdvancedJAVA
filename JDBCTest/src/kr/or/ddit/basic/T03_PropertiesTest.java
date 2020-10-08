@@ -45,13 +45,6 @@ public class T03_PropertiesTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 
 }

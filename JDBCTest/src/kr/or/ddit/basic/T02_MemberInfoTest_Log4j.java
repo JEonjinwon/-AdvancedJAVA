@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import kr.or.ddit.util.JDBCUtil;
 
 /*
@@ -35,8 +37,12 @@ create table mymember(
 );
 
 */
-public class T02_MemberInfoTest {
+public class T02_MemberInfoTest_Log4j {
 	
+	//Log4j를 이용한 로그 남기기위한 로거 생성 
+	private static final Logger sqlLogger = Logger.getLogger("log4jexam.sql.Query");
+	private static final Logger paramLogger = Logger.getLogger("log4jexam.sql.Parameter");
+	private static final Logger resultLogger = Logger.getLogger(T02_MemberInfoTest_Log4j.class);
 	
 	
 	
@@ -271,13 +277,25 @@ public class T02_MemberInfoTest {
 			String sql = "insert into myMember " 
 						+ " (mem_id,mem_name,mem_tel,mem_addr) " 
 						+" values(?,?,?,?) ";
+			
+			sqlLogger.debug("쿼리 : " + sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memId);
 			pstmt.setString(2, memName);
 			pstmt.setString(3, memTel);
 			pstmt.setString(4, memAddr);
 			
+			
+			paramLogger.debug("파라미터 ("
+			+ memId+", "
+			+ memName+", "
+			+ memTel+", "
+			+ memAddr+")");
+			
 			int cnt = pstmt.executeUpdate();
+			
+			resultLogger.info("결과값 : "+ cnt);
+			
 			if(cnt>0) {
 				System.out.println(memId+" 회원 추가 성공...");
 			}else {
@@ -340,7 +358,7 @@ public class T02_MemberInfoTest {
 //	}
 
 	public static void main(String[] args) {
-		T02_MemberInfoTest memObj = new T02_MemberInfoTest();
+		T02_MemberInfoTest_Log4j memObj = new T02_MemberInfoTest_Log4j();
 		memObj.start();
 	}
 

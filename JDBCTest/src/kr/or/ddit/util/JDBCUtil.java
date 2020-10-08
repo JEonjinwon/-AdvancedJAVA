@@ -10,10 +10,8 @@ import java.sql.Statement;
 
 /**
  * JDBC 드라이버를 로딩하고 Connection객체를 생성하는 메서드 제공 
- * @author PC-17
- *
  */
-public class JDBCUtill {
+public class JDBCUtil {
 
 	static {
 		try {
